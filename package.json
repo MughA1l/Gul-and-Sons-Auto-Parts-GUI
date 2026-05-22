@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "npm exec vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "node -e \"const fs=require('fs'); const p='node_modules/.bin/vite'; try { fs.chmodSync(p, 0o755); } catch (e) {}\""
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
