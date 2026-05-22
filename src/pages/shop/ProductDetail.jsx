@@ -9,6 +9,7 @@ import { userApi } from '../../api/orderApi';
 import { updateUserWishlist } from '../../store/slices/authSlice';
 import ProductCard from '../../components/ui/ProductCard';
 import { formatPrice, getImageUrl } from '../../utils/formatters';
+import { getWhatsAppUrl } from '../../utils/contact';
 import toast from 'react-hot-toast';
 import './ProductDetail.css';
 
@@ -42,6 +43,10 @@ export default function ProductDetail() {
       setIsWishlisted(user?.wishlist?.some(wid => wid === prodRes.data.product._id || wid?._id === prodRes.data.product._id));
     }).catch(console.error).finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    setSelectedImage(0);
+  }, [product?._id]);
 
   const handleAddToCart = () => {
     if (!isAuthenticated) { toast.error('Please login'); navigate('/login'); return; }
@@ -83,6 +88,7 @@ export default function ProductDetail() {
   const effectivePrice = product.discountPrice > 0 ? product.discountPrice : product.price;
   const discountPercent = product.discountPrice > 0 ? Math.round(((product.price - product.discountPrice) / product.price) * 100) : 0;
   const inStock = product.stock > 0;
+  const whatsappMessage = `Hello, I want to ask about ${product.name}${product.partNumber ? ` (Part ${product.partNumber})` : ''}.`;
 
   return (
     <div className="product-detail-page page-enter">
@@ -127,6 +133,26 @@ export default function ProductDetail() {
                 ))}
               </div>
             )}
+
+            {product.videoUrl && (
+              <div className="product-video-wrapper" style={{ marginTop: '1rem' }}>
+                <iframe
+                  title="product-video"
+                  src={(() => {
+                    try {
+                      const url = product.videoUrl;
+                      const ytMatch = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+                      if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+                      return url;
+                    } catch (e) { return '' }
+                  })()}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ width: '100%', height: 360, borderRadius: 12 }}
+                />
+              </div>
+            )}
           </div>
 
           {/* Info */}
@@ -164,6 +190,9 @@ export default function ProductDetail() {
               <span className="product-price">{formatPrice(effectivePrice)}</span>
               {discountPercent > 0 && (
                 <span className="product-original-price">{formatPrice(product.price)}</span>
+              )}
+              {product.deliveryCharge > 0 && (
+                <div style={{ marginTop: '0.5rem', color: 'var(--text-secondary)' }}>Delivery: {formatPrice(product.deliveryCharge)}</div>
               )}
             </div>
 
@@ -207,6 +236,18 @@ export default function ProductDetail() {
               >
                 <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
               </motion.button>
+              <a
+                href={getWhatsAppUrl(whatsappMessage)}
+                className="btn btn-outline whatsapp-action-btn"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Chat on WhatsApp about ${product.name}`}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2a10 10 0 0 0-8.6 15l-1 4.9 5-1A10 10 0 1 0 12 2Zm0 18.2c-1.3 0-2.6-.3-3.7-.9l-.3-.1-2.9.6.6-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.4 0-.7-.2a6.7 6.7 0 0 1-2-1.2 7.6 7.6 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.3-.4c.1-.1.1-.3.2-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.7 1 2.9c.1.2 1.8 2.7 4.4 3.8.6.3 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.8-.8 2.1-1.6.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z" fill="currentColor" />
+                </svg>
+                WhatsApp
+              </a>
             </div>
 
             {/* Features */}

@@ -11,7 +11,7 @@ import { fetchCart } from './store/slices/cartSlice';
 
 // Lazy load pages for code splitting
 const Home = lazy(() => import('./pages/shop/Home'));
-const Catalog = lazy(() => import('./pages/shop/Catalog'));
+const Catalog = lazy(() => import('./pages/shop/Catalog')); 
 const Categories = lazy(() => import('./pages/shop/Categories'));
 const Brands = lazy(() => import('./pages/shop/Brands'));
 const ProductDetail = lazy(() => import('./pages/shop/ProductDetail'));

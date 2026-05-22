@@ -8,10 +8,12 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { chatApi } from '../../api/chatApi';
+import { getWhatsAppUrl } from '../../utils/contact';
 import toast from 'react-hot-toast';
 import './Chat.css';
 
 const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const SUPPORT_MESSAGE = 'Hello, I need help with my order or product inquiry.';
 
 export default function CustomerChatWidget() {
   const { isAuthenticated, user, accessToken } = useSelector((s) => s.auth);
@@ -222,9 +224,23 @@ export default function CustomerChatWidget() {
                   <span>Typically replies in a few minutes</span>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="chat-close-btn">
-                <X size={20} />
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <a
+                  href={getWhatsAppUrl(SUPPORT_MESSAGE)}
+                  className="chat-whatsapp-btn"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Chat on WhatsApp"
+                  title="Chat on WhatsApp"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 0 0-8.6 15l-1 4.9 5-1A10 10 0 1 0 12 2Zm0 18.2c-1.3 0-2.6-.3-3.7-.9l-.3-.1-2.9.6.6-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.4 0-.7-.2a6.7 6.7 0 0 1-2-1.2 7.6 7.6 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.3-.4c.1-.1.1-.3.2-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.7 1 2.9c.1.2 1.8 2.7 4.4 3.8.6.3 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.8-.8 2.1-1.6.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z" fill="currentColor" />
+                  </svg>
+                </a>
+                <button onClick={() => setIsOpen(false)} className="chat-close-btn">
+                  <X size={20} />
+                </button>
+              </div>
             </div>
 
             <div className="chat-messages">
@@ -329,6 +345,19 @@ export default function CustomerChatWidget() {
           <span className="chat-fab-badge">{unreadCount}</span>
         )}
       </motion.button>
+
+      <a
+        href={getWhatsAppUrl(SUPPORT_MESSAGE)}
+        className="whatsapp-fab"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Contact us on WhatsApp"
+        title="Contact us on WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-8.6 15l-1 4.9 5-1A10 10 0 1 0 12 2Zm0 18.2c-1.3 0-2.6-.3-3.7-.9l-.3-.1-2.9.6.6-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.4 0-.7-.2a6.7 6.7 0 0 1-2-1.2 7.6 7.6 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.3-.4c.1-.1.1-.3.2-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.7 1 2.9c.1.2 1.8 2.7 4.4 3.8.6.3 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.8-.8 2.1-1.6.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z" fill="currentColor" />
+        </svg>
+      </a>
     </>
   );
 }

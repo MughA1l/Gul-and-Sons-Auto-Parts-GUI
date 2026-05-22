@@ -4,12 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ShoppingCart, Search, Sun, Moon, Menu, X, User, LogOut,
-  Package, Heart, ChevronDown, Settings, LayoutDashboard, Wrench,
+  Package, Heart, ChevronDown, Settings, LayoutDashboard,
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { logoutUser } from '../../store/slices/authSlice';
 import { selectCartItemCount } from '../../store/slices/cartSlice';
+import BrandMark from '../ui/BrandMark';
 import './Navbar.css';
+
+const BRAND_NAME = 'Gull & Sons Auto Parts';
+const BRAND_EMAIL = 'gullandsonsautoparts@gmail.com';
+const BRAND_PHONE = '+923263133136';
 
 export default function Navbar() {
   const { theme, toggleTheme, isDark } = useTheme();
@@ -72,13 +77,11 @@ export default function Navbar() {
       <div className="navbar-top">
         <div className="container">
           <div className="navbar-top-inner">
-            <span className="navbar-tagline">
-              🚗 Pakistan's #1 Auto Parts Store • Free delivery on orders above Rs. 5,000
-            </span>
+            <span className="navbar-tagline">{BRAND_NAME}</span>
             <div className="navbar-top-actions">
-              <span>📞 0300-1234567</span>
+              <a href={`tel:${BRAND_PHONE}`} className="top-link">📞 {BRAND_PHONE}</a>
               <span>|</span>
-              <span>✉️ support@autoparts.com</span>
+              <a href={`mailto:${BRAND_EMAIL}`} className="top-link">✉️ {BRAND_EMAIL}</a>
             </div>
           </div>
         </div>
@@ -95,11 +98,11 @@ export default function Navbar() {
                 whileHover={{ rotate: 20 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Wrench size={22} />
+                <BrandMark className="brand-mark" />
               </motion.div>
               <span>
-                Auto<span className="logo-accent">Parts</span>
-                <span className="logo-pro"> Pro</span>
+                <span className="logo-brand-main">Gull &amp; Sons</span>
+                <span className="logo-brand-sub">Auto Parts</span>
               </span>
             </Link>
 

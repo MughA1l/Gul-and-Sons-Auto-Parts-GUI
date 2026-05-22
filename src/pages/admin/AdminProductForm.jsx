@@ -23,6 +23,8 @@ export default function AdminProductForm() {
     category: '',
     price: '',
     discountPrice: '0',
+      deliveryCharge: '0',
+      videoUrl: '',
     stock: '',
     shortDescription: '',
     description: '',
@@ -54,6 +56,8 @@ export default function AdminProductForm() {
           category: p.category?._id || '',
           price: p.price,
           discountPrice: p.discountPrice || 0,
+          deliveryCharge: p.deliveryCharge || 0,
+          videoUrl: p.videoUrl || '',
           stock: p.stock,
           shortDescription: p.shortDescription || '',
           description: p.description || '',
@@ -177,6 +181,14 @@ export default function AdminProductForm() {
               <div className="form-group">
                 <label className="form-label">Stock Quantity *</label>
                 <input type="number" className="form-input" name="stock" value={formData.stock} onChange={handleInputChange} required min="0" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Delivery Charge (Rs)</label>
+                <input type="number" className="form-input" name="deliveryCharge" value={formData.deliveryCharge} onChange={handleInputChange} min="0" />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Product Video URL (YouTube/Vimeo)</label>
+                <input className="form-input" name="videoUrl" value={formData.videoUrl} onChange={handleInputChange} />
               </div>
               <div className="form-group">
                 <label className="form-label">Condition</label>

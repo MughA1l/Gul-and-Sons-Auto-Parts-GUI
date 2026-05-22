@@ -82,7 +82,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload.user;
       state.accessToken = action.payload.accessToken;
-      toast.success(`Welcome to AutoParts Pro, ${action.payload.user.name}! 🎉`);
+      toast.success(`Welcome to Gull & Sons Auto Parts, ${action.payload.user.name}! 🎉`);
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;

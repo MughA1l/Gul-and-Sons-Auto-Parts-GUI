@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
-import { Wrench, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Music2, Youtube } from 'lucide-react';
+import BrandMark from '../ui/BrandMark';
 import './Footer.css';
+
+const BRAND_NAME = 'Gull & Sons Auto Parts';
+const BRAND_EMAIL = 'gullandsonsautoparts@gmail.com';
+const BRAND_PHONE = '+923263133136';
+const BRAND_ADDRESS_URL = 'https://share.google/N49fVrwRwYwWWqQI9';
+const BRAND_FACEBOOK = 'https://www.facebook.com/share/18fsjsHVuk/';
+const BRAND_INSTAGRAM = 'https://www.instagram.com/gullautoparts.pk?igsh=ODA5c25vb2V4ZXVx';
+const BRAND_TIKTOK = 'https://www.tiktok.com/@gulautoparts?_r=1&_t=ZS-96P2B7Pm74H';
+const BRAND_YOUTUBE = 'https://youtube.com/@gullandsonsautoparts?si=47XXV_xx466NHFn7';
 
 export default function Footer() {
   return (
@@ -11,17 +21,18 @@ export default function Footer() {
             {/* Brand */}
             <div className="footer-brand">
               <div className="footer-logo">
-                <div className="footer-logo-icon"><Wrench size={18} /></div>
-                <span>Auto<span>Parts</span> Pro</span>
+                <div className="footer-logo-icon"><BrandMark className="brand-mark" /></div>
+                <span><span className="footer-brand-main">Gull &amp; Sons</span><span className="footer-brand-sub">Auto Parts</span></span>
               </div>
               <p className="footer-tagline">
-                Pakistan's #1 auto parts e-commerce platform. Genuine and aftermarket parts
-                for all major vehicle brands, delivered nationwide.
+                Genuine auto parts with multiple images, product videos, and delivery details
+                for every listing.
               </p>
               <div className="footer-social">
-                <a href="#" className="social-btn" id="footer-facebook"><Facebook size={16} /></a>
-                <a href="#" className="social-btn" id="footer-instagram"><Instagram size={16} /></a>
-                <a href="#" className="social-btn" id="footer-twitter"><Twitter size={16} /></a>
+                <a href={BRAND_FACEBOOK} target="_blank" rel="noreferrer" className="social-btn" id="footer-facebook"><Facebook size={16} /></a>
+                <a href={BRAND_INSTAGRAM} target="_blank" rel="noreferrer" className="social-btn" id="footer-instagram"><Instagram size={16} /></a>
+                <a href={BRAND_TIKTOK} target="_blank" rel="noreferrer" className="social-btn" id="footer-tiktok"><Music2 size={16} /></a>
+                <a href={BRAND_YOUTUBE} target="_blank" rel="noreferrer" className="social-btn" id="footer-twitter"><Youtube size={16} /></a>
               </div>
             </div>
 
@@ -55,15 +66,15 @@ export default function Footer() {
               <div className="footer-contact-list">
                 <div className="contact-item">
                   <Phone size={14} />
-                  <span>0300-1234567</span>
+                  <a href={`tel:${BRAND_PHONE}`}>{BRAND_PHONE}</a>
                 </div>
                 <div className="contact-item">
                   <Mail size={14} />
-                  <span>support@autoparts.com</span>
+                  <a href={`mailto:${BRAND_EMAIL}`}>{BRAND_EMAIL}</a>
                 </div>
                 <div className="contact-item">
                   <MapPin size={14} />
-                  <span>Lahore, Punjab, Pakistan</span>
+                  <a href={BRAND_ADDRESS_URL} target="_blank" rel="noreferrer">View address on map</a>
                 </div>
               </div>
               <div className="footer-hours">
@@ -80,7 +91,7 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-inner">
-            <p>© 2024 AutoParts Pro. All rights reserved.</p>
+            <p>© 2024 {BRAND_NAME}. All rights reserved.</p>
             <div className="footer-bottom-links">
               <a href="#">Privacy Policy</a>
               <a href="#">Terms of Service</a>

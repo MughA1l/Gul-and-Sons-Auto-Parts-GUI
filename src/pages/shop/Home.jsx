@@ -113,7 +113,7 @@ export default function Home() {
                 transition={{ delay: 0.2 }}
               >
                 <Zap size={14} />
-                Pakistan's #1 Auto Parts Platform
+                Gull &amp; Sons Auto Parts
               </motion.div>
 
               <h1 className="hero-title">

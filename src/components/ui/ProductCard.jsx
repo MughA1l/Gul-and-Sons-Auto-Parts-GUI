@@ -7,6 +7,7 @@ import { addToCart } from '../../store/slices/cartSlice';
 import { userApi } from '../../api/orderApi';
 import { updateUserWishlist } from '../../store/slices/authSlice';
 import { formatPrice, getImageUrl } from '../../utils/formatters';
+import { getWhatsAppUrl } from '../../utils/contact';
 import toast from 'react-hot-toast';
 import './ProductCard.css';
 
@@ -27,6 +28,7 @@ export default function ProductCard({ product, index = 0 }) {
   const discountPercent = product.discountPrice > 0
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
     : 0;
+  const whatsappMessage = `Hello, I want to ask about ${product.name}${product.partNumber ? ` (Part ${product.partNumber})` : ''}.`;
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -127,6 +129,20 @@ export default function ProductCard({ product, index = 0 }) {
             >
               <Eye size={16} />
             </motion.div>
+
+            <a
+              href={getWhatsAppUrl(whatsappMessage)}
+              className="overlay-btn whatsapp-btn"
+              target="_blank"
+              rel="noreferrer"
+              title="Chat on WhatsApp"
+              aria-label={`Chat on WhatsApp about ${product.name}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2a10 10 0 0 0-8.6 15l-1 4.9 5-1A10 10 0 1 0 12 2Zm0 18.2c-1.3 0-2.6-.3-3.7-.9l-.3-.1-2.9.6.6-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.4 0-.7-.2a6.7 6.7 0 0 1-2-1.2 7.6 7.6 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.3-.4c.1-.1.1-.3.2-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.7 1 2.9c.1.2 1.8 2.7 4.4 3.8.6.3 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.8-.8 2.1-1.6.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z" fill="currentColor" />
+              </svg>
+            </a>
           </div>
 
           {/* Quick add shimmer */}
@@ -193,17 +209,32 @@ export default function ProductCard({ product, index = 0 }) {
 
       {/* Add to Cart button (full width) */}
       <div className="product-card-footer">
-        <motion.button
-          className={`btn ${inStock ? 'btn-primary' : 'btn-outline'} product-cart-btn`}
-          onClick={handleAddToCart}
-          disabled={!inStock || cartLoading}
-          whileHover={inStock ? { scale: 1.02 } : {}}
-          whileTap={inStock ? { scale: 0.98 } : {}}
-          id={`add-to-cart-${product._id}`}
-        >
-          <ShoppingCart size={15} />
-          {inStock ? 'Add to Cart' : 'Out of Stock'}
-        </motion.button>
+        <div className="product-card-footer-actions">
+          <motion.button
+            className={`btn ${inStock ? 'btn-primary' : 'btn-outline'} product-cart-btn`}
+            onClick={handleAddToCart}
+            disabled={!inStock || cartLoading}
+            whileHover={inStock ? { scale: 1.02 } : {}}
+            whileTap={inStock ? { scale: 0.98 } : {}}
+            id={`add-to-cart-${product._id}`}
+          >
+            <ShoppingCart size={15} />
+            {inStock ? 'Add to Cart' : 'Out of Stock'}
+          </motion.button>
+
+          <a
+            href={getWhatsAppUrl(whatsappMessage)}
+            className="btn btn-outline product-whatsapp-btn"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Chat on WhatsApp about ${product.name}`}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-8.6 15l-1 4.9 5-1A10 10 0 1 0 12 2Zm0 18.2c-1.3 0-2.6-.3-3.7-.9l-.3-.1-2.9.6.6-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.4 0-.7-.2a6.7 6.7 0 0 1-2-1.2 7.6 7.6 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.3-.4c.1-.1.1-.3.2-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.7 1 2.9c.1.2 1.8 2.7 4.4 3.8.6.3 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.8-.8 2.1-1.6.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z" fill="currentColor" />
+            </svg>
+            WhatsApp
+          </a>
+        </div>
       </div>
     </motion.div>
   );

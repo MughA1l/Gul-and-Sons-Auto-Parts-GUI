@@ -1,7 +1,7 @@
 {
   "name": "autoparts-frontend",
   "version": "1.0.0",
-  "description": "AutoParts Pro E-Commerce Frontend",
+  "description": "Gull & Sons Auto Parts E-Commerce Frontend",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -11,7 +11,7 @@ export default function AdminCategories() {
   const [editCategory, setEditCategory] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const [formData, setFormData] = useState({ name: '', description: '', icon: '', parent: '' });
+  const [formData, setFormData] = useState({ name: '', description: '' });
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -43,8 +43,6 @@ export default function AdminCategories() {
     setFormData({
       name: cat.name,
       description: cat.description || '',
-      icon: cat.icon || '',
-      parent: cat.parent?._id || ''
     });
     setShowModal(true);
   };
@@ -52,7 +50,7 @@ export default function AdminCategories() {
   const handleModalClose = () => {
     setShowModal(false);
     setEditCategory(null);
-    setFormData({ name: '', description: '', icon: '', parent: '' });
+    setFormData({ name: '', description: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +58,9 @@ export default function AdminCategories() {
     setSaving(true);
     try {
       const fd = new FormData();
-      Object.keys(formData).forEach(k => { if (formData[k]) fd.append(k, formData[k]); });
+      Object.keys(formData).forEach((k) => {
+        if (formData[k]) fd.append(k, formData[k]);
+      });
 
       if (editCategory) {
         await categoryApi.updateCategory(editCategory._id, fd);
@@ -131,19 +131,6 @@ export default function AdminCategories() {
               <div className="form-group">
                 <label className="form-label">Category Name *</label>
                 <input className="form-input" value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} required />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Icon (Emoji or SVG text)</label>
-                <input className="form-input" value={formData.icon} onChange={e => setFormData(p => ({...p, icon: e.target.value}))} />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Parent Category</label>
-                <select className="form-select" value={formData.parent} onChange={e => setFormData(p => ({...p, parent: e.target.value}))}>
-                  <option value="">None (Top Level)</option>
-                  {categories.filter(c => !editCategory || c._id !== editCategory._id).map(c => (
-                    <option key={c._id} value={c._id}>{c.name}</option>
-                  ))}
-                </select>
               </div>
               <div className="form-group">
                 <label className="form-label">Description</label>
