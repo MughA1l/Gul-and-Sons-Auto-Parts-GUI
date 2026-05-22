@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "vite preview",
-    "postinstall": "chmod +x ./node_modules/.bin/vite || true"
+    "build": "npm exec vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
