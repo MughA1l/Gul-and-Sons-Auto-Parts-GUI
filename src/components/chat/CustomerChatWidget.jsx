@@ -12,7 +12,7 @@ import { getWhatsAppUrl } from '../../utils/contact';
 import toast from 'react-hot-toast';
 import './Chat.css';
 
-const SOCKET_URL = (import.meta.env.VITE_API_URL || 'https://gul-and-sons-auto-parts-backend.vercel.app/api')
+const SOCKET_URL = (import.meta.env.VITE_API_URL || 'https://gul-and-sons-auto-parts-backend-9ye.vercel.app/api')
   .replace(/\/api$/, '');
 const SUPPORT_MESSAGE = 'Hello, I need help with my order or product inquiry.';
 
