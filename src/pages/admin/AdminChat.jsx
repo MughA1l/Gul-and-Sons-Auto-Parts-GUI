@@ -9,7 +9,8 @@ import { chatApi } from '../../api/chatApi';
 import toast from 'react-hot-toast';
 import './AdminChat.css';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const SOCKET_URL = (import.meta.env.VITE_API_URL || 'https://gul-and-sons-auto-parts-backend.vercel.app/api')
+  .replace(/\/api$/, '');
 
 export default function AdminChat() {
   const { accessToken, user } = useSelector((s) => s.auth);

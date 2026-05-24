@@ -12,7 +12,8 @@ import io from 'socket.io-client';
 import toast from 'react-hot-toast';
 import './AdminLayout.css';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const SOCKET_URL = (import.meta.env.VITE_API_URL || 'https://gul-and-sons-auto-parts-backend.vercel.app/api')
+  .replace(/\/api$/, '');
 
 const navItems = [
   { to: '/admin', icon: <LayoutDashboard size={18} />, label: 'Dashboard', end: true },

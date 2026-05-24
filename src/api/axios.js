@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const FALLBACK_API_BASE = 'https://gul-and-sons-auto-parts-backend.vercel.app/api';
+
+const normalizeApiBase = (value) => {
+  if (!value) return FALLBACK_API_BASE;
+  if (value === '/api') return '/api';
+  const trimmed = value.replace(/\/$/, '');
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+};
+
+const API_BASE = normalizeApiBase(import.meta.env.VITE_API_URL);
 
 const instance = axios.create({
   baseURL: API_BASE,
@@ -51,7 +60,7 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+        const { data } = await instance.post('/auth/refresh', {});
         const newToken = data.accessToken;
         localStorage.setItem('accessToken', newToken);
         processQueue(null, newToken);
