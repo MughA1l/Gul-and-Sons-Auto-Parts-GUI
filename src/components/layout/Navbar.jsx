@@ -312,15 +312,15 @@ export default function Navbar() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.06 }}
                   >
-                    <Link to={link.to} className="mobile-nav-link">{link.label}</Link>
+                    <Link to={link.to} className="mobile-nav-link" onClick={() => setMobileOpen(false)}>{link.label}</Link>
                   </motion.div>
                 ))}
               </div>
 
               {!isAuthenticated && (
                 <div className="mobile-auth">
-                  <Link to="/login" className="btn btn-outline" style={{ flex: 1 }} id="mobile-login-btn">Login</Link>
-                  <Link to="/register" className="btn btn-primary" style={{ flex: 1 }} id="mobile-register-btn">Sign Up</Link>
+                  <Link to="/login" className="btn btn-outline" style={{ flex: 1 }} id="mobile-login-btn" onClick={() => setMobileOpen(false)}>Login</Link>
+                  <Link to="/register" className="btn btn-primary" style={{ flex: 1 }} id="mobile-register-btn" onClick={() => setMobileOpen(false)}>Sign Up</Link>
                 </div>
               )}
             </div>
