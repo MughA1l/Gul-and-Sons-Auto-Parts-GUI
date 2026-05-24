@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const FALLBACK_API_BASE = 'https://gul-and-sons-auto-parts-backend.vercel.app/api';
+// Use the Vercel deployment that currently hosts the API as a safer fallback
+const FALLBACK_API_BASE = 'https://gul-and-sons-auto-parts-backend-9ye.vercel.app/api';
 
 const normalizeApiBase = (value) => {
   if (!value) return FALLBACK_API_BASE;
