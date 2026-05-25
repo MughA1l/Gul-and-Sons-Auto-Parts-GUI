@@ -1,3 +1,5 @@
+import { BASE_URL } from '../api/axios';
+
 // Format price to Pakistani Rupees
 export const formatPrice = (price) => {
   if (price === undefined || price === null) return 'Rs. 0';
@@ -36,7 +38,10 @@ export const truncate = (text, length = 80) => {
 export const getImageUrl = (path) => {
   if (!path) return '/placeholder-part.jpg';
   if (path.startsWith('http')) return path;
-  return path;
+  
+  // Ensure we use the backend URL for locally hosted images on Vercel
+  const staticPath = path.startsWith('/') ? path : `/${path}`;
+  return `${BASE_URL}${staticPath}`;
 };
 
 // Order status config

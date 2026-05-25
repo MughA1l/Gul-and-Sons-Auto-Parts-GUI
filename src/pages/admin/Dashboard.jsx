@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from 'recharts';
 import { adminApi } from '../../api/orderApi';
-import { formatPrice, formatDate, ORDER_STATUS_CONFIG } from '../../utils/formatters';
+import { formatPrice, formatDate, ORDER_STATUS_CONFIG, getImageUrl } from '../../utils/formatters';
 import './Admin.css';
 
 const StatCard = ({ title, value, subtitle, icon, color, trend }) => (
@@ -280,7 +280,7 @@ export default function AdminDashboard() {
                 <div className="top-product-rank">#{i + 1}</div>
                 <div className="top-product-img">
                   <img
-                    src={product.images?.[0] || '/placeholder-part.jpg'}
+                    src={product.images?.[0] ? getImageUrl(product.images[0]) : '/placeholder-part.jpg'}
                     alt={product.name}
                     onError={(e) => { e.target.src = '/placeholder-part.jpg'; }}
                   />

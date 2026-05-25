@@ -12,6 +12,9 @@ const normalizeApiBase = (value) => {
 
 const API_BASE = normalizeApiBase(import.meta.env.VITE_API_URL);
 
+// Base URL for images and other static assets
+export const BASE_URL = API_BASE.replace(/\/api$/, '');
+
 const instance = axios.create({
   baseURL: API_BASE,
   withCredentials: true,

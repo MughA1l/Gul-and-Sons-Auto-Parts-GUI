@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { Package, MapPin, CheckCircle, Truck, ChevronRight } from 'lucide-react';
 import { orderApi } from '../../api/orderApi';
-import { formatPrice, DELIVERY_CHARGE } from '../../utils/formatters';
+import { formatPrice, DELIVERY_CHARGE, getImageUrl } from '../../utils/formatters';
 import toast from 'react-hot-toast';
 import './Checkout.css';
 
@@ -250,7 +250,7 @@ export default function Checkout() {
                     <div key={item._id} className="checkout-item">
                       <div className="checkout-item-img">
                         <img
-                          src={item.product?.images?.[0] || '/placeholder-part.jpg'}
+                          src={item.product?.images?.[0] ? getImageUrl(item.product.images[0]) : '/placeholder-part.jpg'}
                           alt={item.product?.name}
                           onError={(e) => { e.target.src = '/placeholder-part.jpg'; }}
                         />
