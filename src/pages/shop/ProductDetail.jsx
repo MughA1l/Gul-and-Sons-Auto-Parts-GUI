@@ -137,6 +137,7 @@ export default function ProductDetail() {
             {product.videoUrl && (
               <div className="product-video-wrapper" style={{ marginTop: '1rem' }}>
                 <iframe
+                  className="product-video-embed"
                   title="product-video"
                   src={(() => {
                     try {
@@ -149,7 +150,6 @@ export default function ProductDetail() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  style={{ width: '100%', height: 360, borderRadius: 12 }}
                 />
               </div>
             )}
@@ -300,16 +300,18 @@ export default function ProductDetail() {
             {activeTab === 'specifications' && (
               <div className="tab-pane">
                 {product.specifications?.length > 0 ? (
-                  <table className="specs-table">
-                    <tbody>
-                      {product.specifications.map((spec, i) => (
-                        <tr key={i}>
-                          <th>{spec.key}</th>
-                          <td>{spec.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <div className="specs-table-wrapper">
+                    <table className="specs-table">
+                      <tbody>
+                        {product.specifications.map((spec, i) => (
+                          <tr key={i}>
+                            <th>{spec.key}</th>
+                            <td>{spec.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 ) : <p style={{ color: 'var(--text-muted)' }}>No specifications available.</p>}
               </div>
             )}
